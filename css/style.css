@@ -1,11 +1,12 @@
 /*
  * Los Simpson Theme CSS
- * NamelessMC v2.x
+ * NamelessMC v2.2.x
+ * Overrides on top of Fomantic UI
  * Inspired by The Simpsons TV Show
  */
 
 /* ==========================================
-   VARIABLES Y RESET
+   VARIABLES
    ========================================== */
 
 :root {
@@ -23,421 +24,556 @@
     --simpson-white: #FFFFFF;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==========================================
+   GENERAL
+   ========================================== */
 
 body {
-    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
-    background: linear-gradient(135deg, var(--simpson-sky) 0%, var(--simpson-blue) 100%);
-    background-attachment: fixed;
-    color: var(--simpson-dark);
-    overflow-x: hidden;
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif !important;
+    background: linear-gradient(180deg, var(--simpson-sky) 0%, #c8e6f5 100%) !important;
+    background-attachment: fixed !important;
 }
 
-/* Nubes de fondo estilo Springfield */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(ellipse 200px 100px at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-        radial-gradient(ellipse 300px 150px at 80% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-        radial-gradient(ellipse 250px 120px at 50% 70%, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
+body.dark {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%) !important;
 }
 
-/* ==========================================
-   CONTENEDOR PRINCIPAL
-   ========================================== */
-
-.container, .container-fluid {
-    position: relative;
-    z-index: 1;
+h1, h2, h3, h4, h5, h6,
+.ui.header {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif !important;
+    font-weight: 700 !important;
 }
 
-/* ==========================================
-   NAVBAR ESTILO SIMPSON
-   ========================================== */
-
-.navbar {
-    background: var(--simpson-yellow) !important;
-    border-bottom: 5px solid var(--simpson-orange);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    padding: 1rem 2rem;
-    font-weight: 700;
-}
-
-.navbar-brand {
-    font-size: 2rem;
-    color: var(--simpson-blue) !important;
-    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.navbar-brand:hover {
-    transform: scale(1.1) rotate(-2deg);
-    color: var(--simpson-purple) !important;
-}
-
-.navbar-nav .nav-link {
-    color: var(--simpson-dark) !important;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.navbar-nav .nav-link:hover {
-    background: var(--simpson-blue);
-    color: var(--simpson-white) !important;
-    transform: translateY(-3px);
-}
-
-.navbar-nav .nav-link.active {
-    background: var(--simpson-orange);
-    color: var(--simpson-white) !important;
-}
-
-/* ==========================================
-   CARDS Y CONTENEDORES
-   ========================================== */
-
-.card {
-    background: var(--simpson-white);
-    border: 4px solid var(--simpson-dark);
-    border-radius: 20px;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
-    margin-bottom: 2rem;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.4);
-}
-
-.card-header {
-    background: var(--simpson-yellow) !important;
-    border-bottom: 3px solid var(--simpson-orange);
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--simpson-dark);
-    padding: 1rem 1.5rem;
-}
-
-.card-body {
-    padding: 1.5rem;
-    background: var(--simpson-white);
-}
-
-.card-footer {
-    background: var(--simpson-light) !important;
-    border-top: 3px solid var(--simpson-dark);
-    padding: 1rem 1.5rem;
-}
-
-/* ==========================================
-   BOTONES ESTILO SIMPSON
-   ========================================== */
-
-.btn {
-    font-family: 'Comic Neue', cursive;
-    font-weight: 700;
-    border-radius: 15px;
-    padding: 0.75rem 1.5rem;
-    border: 3px solid var(--simpson-dark);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.btn-primary {
-    background: var(--simpson-blue);
-    color: var(--simpson-white);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary:hover {
-    background: var(--simpson-purple);
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-success {
-    background: var(--simpson-green);
-    color: var(--simpson-white);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-success:hover {
-    background: #7AB33D;
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-warning {
-    background: var(--simpson-orange);
-    color: var(--simpson-white);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-warning:hover {
-    background: #E89400;
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-danger {
-    background: var(--simpson-red);
-    color: var(--simpson-white);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-}
-
-.btn-danger:hover {
-    background: #C0392B;
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-}
-
-/* ==========================================
-   FOOTER ESTILO SIMPSON
-   ========================================== */
-
-footer {
-    background: var(--simpson-yellow);
-    border-top: 5px solid var(--simpson-orange);
-    padding: 2rem 0;
-    margin-top: 3rem;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
-}
-
-footer h5 {
+a {
     color: var(--simpson-blue);
-    font-weight: 700;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
-footer a {
-    color: var(--simpson-dark);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 600;
-}
-
-footer a:hover {
+a:hover {
     color: var(--simpson-purple);
-    transform: translateX(5px);
+}
+
+/* ==========================================
+   NAVBAR
+   ========================================== */
+
+#navbar {
+    background: var(--simpson-yellow) !important;
+    border-bottom: 4px solid var(--simpson-orange) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+#navbar .item {
+    font-weight: 700 !important;
+    color: var(--simpson-dark) !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+#navbar .item:hover {
+    background: var(--simpson-blue) !important;
+    color: white !important;
+}
+
+#navbar .item.active {
+    background: var(--simpson-orange) !important;
+    color: white !important;
+}
+
+#navbar .ui.button.primary {
+    background: var(--simpson-blue) !important;
+    border: 2px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+}
+
+#navbar .ui.button.primary:hover {
+    background: var(--simpson-purple) !important;
+}
+
+#navbar .ui.button.default {
+    border: 2px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+}
+
+#navbar .ui.label {
+    font-weight: 700 !important;
+}
+
+/* Sidebar mobile menu */
+#toc.ui.sidebar {
+    background: var(--simpson-yellow) !important;
+}
+
+#toc.ui.sidebar .item {
+    color: var(--simpson-dark) !important;
+    font-weight: 700 !important;
+}
+
+#toc.ui.sidebar .item.active {
+    background: var(--simpson-orange) !important;
+    color: white !important;
+}
+
+/* ==========================================
+   MASTHEAD / BANNER
+   ========================================== */
+
+.ui.masthead {
+    background: linear-gradient(135deg, var(--simpson-yellow) 0%, var(--simpson-orange) 100%) !important;
+    border-bottom: 5px solid var(--simpson-dark) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    padding: 2rem 0 !important;
+}
+
+.ui.masthead h1 {
+    color: var(--simpson-dark) !important;
+    text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.4) !important;
+    font-size: 2.5rem !important;
+}
+
+.ui.masthead .connect-server h4 {
+    color: var(--simpson-dark) !important;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--simpson-dark);
     display: inline-block;
 }
 
-/* ==========================================
-   PANELES Y WIDGETS
-   ========================================== */
-
-.widget {
-    background: var(--simpson-white);
-    border: 4px solid var(--simpson-dark);
-    border-radius: 20px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+body.dark .ui.masthead {
+    background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%) !important;
 }
 
-.widget-header {
-    background: var(--simpson-yellow);
-    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
-    padding: 1rem 1.5rem;
-    border-bottom: 3px solid var(--simpson-orange);
-    border-radius: 16px 16px 0 0;
-    font-weight: 700;
-    color: var(--simpson-dark);
+body.dark .ui.masthead h1 {
+    color: var(--simpson-yellow) !important;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* ==========================================
-   FORUM STYLES
+   CARDS
    ========================================== */
 
-.forum-category {
-    background: var(--simpson-pink);
-    border: 4px solid var(--simpson-dark);
-    border-radius: 15px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+.ui.card,
+.ui.cards > .card {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+    overflow: hidden;
 }
 
-.forum-topic {
-    background: var(--simpson-white);
-    border: 3px solid var(--simpson-blue);
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
+.ui.card:hover,
+.ui.cards > .card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3) !important;
 }
 
-.forum-topic:hover {
-    transform: translateX(5px);
-    box-shadow: 5px 5px 0px var(--simpson-yellow);
+.ui.card > .content > .header a {
+    color: var(--simpson-blue) !important;
+    font-weight: 700 !important;
+}
+
+.ui.card > .content > .header a:hover {
+    color: var(--simpson-purple) !important;
+}
+
+.ui.card > .extra.content {
+    background: var(--simpson-light) !important;
+    border-top: 2px solid var(--simpson-dark) !important;
+}
+
+body.dark .ui.card,
+body.dark .ui.cards > .card {
+    background: #2d2d44 !important;
+    border-color: #444 !important;
 }
 
 /* ==========================================
-   USER PROFILE
+   SEGMENTS
    ========================================== */
 
-.profile-header {
-    background: linear-gradient(135deg, var(--simpson-yellow) 0%, var(--simpson-orange) 100%);
-    border: 4px solid var(--simpson-dark);
-    border-radius: 20px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+.ui.segment {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.15) !important;
 }
 
-.avatar {
-    border: 5px solid var(--simpson-dark);
-    border-radius: 50%;
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+.ui.segment.red {
+    border-top: 4px solid var(--simpson-red) !important;
+}
+
+body.dark .ui.segment {
+    background: #2d2d44 !important;
+    border-color: #444 !important;
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.ui.button {
+    font-family: 'Comic Neue', cursive !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    border: 2px solid var(--simpson-dark) !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.ui.primary.button {
+    background: var(--simpson-blue) !important;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ui.primary.button:hover {
+    background: var(--simpson-purple) !important;
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ui.positive.button,
+.ui.green.button {
+    background: var(--simpson-green) !important;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ui.negative.button,
+.ui.red.button {
+    background: var(--simpson-red) !important;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ui.orange.button {
+    background: var(--simpson-orange) !important;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================
+   MESSAGES / ALERTS
+   ========================================== */
+
+.ui.message {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15) !important;
+}
+
+.ui.success.message,
+.ui.positive.message {
+    background: var(--simpson-green) !important;
+    color: white !important;
+}
+
+.ui.error.message,
+.ui.negative.message {
+    background: var(--simpson-red) !important;
+    color: white !important;
+}
+
+.ui.warning.message {
+    background: var(--simpson-orange) !important;
+    color: white !important;
+}
+
+.ui.info.message {
+    background: var(--simpson-blue) !important;
+    color: white !important;
+}
+
+.ui.message .header {
+    color: inherit !important;
 }
 
 /* ==========================================
    FORMS
    ========================================== */
 
-.form-control {
-    border: 3px solid var(--simpson-dark);
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
-    font-family: 'Comic Neue', cursive;
-    transition: all 0.3s ease;
+.ui.form .field > label {
+    font-family: 'Comic Neue', cursive !important;
+    font-weight: 700 !important;
+    color: var(--simpson-dark) !important;
 }
 
-.form-control:focus {
-    border-color: var(--simpson-blue);
-    box-shadow: 0 0 0 0.2rem rgba(107, 173, 228, 0.25);
-    transform: scale(1.02);
+.ui.form input[type="text"],
+.ui.form input[type="email"],
+.ui.form input[type="password"],
+.ui.form textarea,
+.ui.form select,
+.ui.input > input {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    font-family: 'Comic Neue', cursive !important;
+    transition: all 0.3s ease !important;
 }
 
-.form-label {
-    font-weight: 700;
-    color: var(--simpson-dark);
-    margin-bottom: 0.5rem;
-}
-
-/* ==========================================
-   ALERTS
-   ========================================== */
-
-.alert {
-    border: 3px solid var(--simpson-dark);
-    border-radius: 15px;
-    font-weight: 600;
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
-}
-
-.alert-success {
-    background: var(--simpson-green);
-    color: var(--simpson-white);
-}
-
-.alert-danger {
-    background: var(--simpson-red);
-    color: var(--simpson-white);
-}
-
-.alert-warning {
-    background: var(--simpson-orange);
-    color: var(--simpson-white);
-}
-
-.alert-info {
-    background: var(--simpson-blue);
-    color: var(--simpson-white);
+.ui.form input:focus,
+.ui.form textarea:focus,
+.ui.input > input:focus {
+    border-color: var(--simpson-blue) !important;
+    box-shadow: 0 0 0 3px rgba(107, 173, 228, 0.3) !important;
 }
 
 /* ==========================================
-   BADGES
+   FOOTER
    ========================================== */
 
-.badge {
-    border: 2px solid var(--simpson-dark);
-    border-radius: 10px;
-    padding: 0.5rem 0.75rem;
-    font-weight: 700;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+#footer {
+    background: var(--simpson-yellow) !important;
+    border-top: 5px solid var(--simpson-orange) !important;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2) !important;
 }
 
-.badge-primary {
-    background: var(--simpson-blue);
+#footer.ui.inverted.segment {
+    background: var(--simpson-yellow) !important;
 }
 
-.badge-success {
-    background: var(--simpson-green);
+#footer .ui.inverted.header {
+    color: var(--simpson-blue) !important;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
-.badge-warning {
-    background: var(--simpson-orange);
+#footer .ui.inverted.link.list .item,
+#footer .ui.inverted.link.list a.item {
+    color: var(--simpson-dark) !important;
+    font-weight: 600 !important;
 }
 
-.badge-danger {
-    background: var(--simpson-red);
+#footer .ui.inverted.link.list a.item:hover {
+    color: var(--simpson-purple) !important;
+}
+
+body.dark #footer {
+    background: #1a1a2e !important;
+    border-top-color: var(--simpson-orange) !important;
+}
+
+body.dark #footer .ui.inverted.header {
+    color: var(--simpson-yellow) !important;
+}
+
+body.dark #footer .ui.inverted.link.list .item,
+body.dark #footer .ui.inverted.link.list a.item {
+    color: #ccc !important;
+}
+
+/* ==========================================
+   WIDGETS
+   ========================================== */
+
+.ui.fluid.card[id*="widget"],
+.ui.card.simpson-widget {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================
+   FORUM STYLES
+   ========================================== */
+
+.ui.table {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+}
+
+.ui.table thead th {
+    background: var(--simpson-yellow) !important;
+    color: var(--simpson-dark) !important;
+    font-weight: 700 !important;
+    border-bottom: 3px solid var(--simpson-dark) !important;
+}
+
+.ui.table tr:hover {
+    background: rgba(255, 217, 15, 0.1) !important;
+}
+
+body.dark .ui.table {
+    background: #2d2d44 !important;
+}
+
+body.dark .ui.table thead th {
+    background: #3d3d5c !important;
+    color: var(--simpson-yellow) !important;
+}
+
+/* ==========================================
+   LABELS / BADGES
+   ========================================== */
+
+.ui.label {
+    border: 2px solid var(--simpson-dark) !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+}
+
+.ui.blue.label {
+    background: var(--simpson-blue) !important;
+}
+
+.ui.green.label {
+    background: var(--simpson-green) !important;
+}
+
+.ui.orange.label {
+    background: var(--simpson-orange) !important;
+}
+
+.ui.red.label {
+    background: var(--simpson-red) !important;
 }
 
 /* ==========================================
    PAGINATION
    ========================================== */
 
-.pagination {
-    margin-top: 2rem;
+.ui.pagination.menu {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
 }
 
-.page-item .page-link {
-    border: 3px solid var(--simpson-dark);
-    color: var(--simpson-dark);
-    font-weight: 700;
-    margin: 0 0.25rem;
-    border-radius: 12px;
-    background: var(--simpson-white);
-    transition: all 0.3s ease;
+.ui.pagination.menu .item {
+    font-weight: 700 !important;
+    border: none !important;
 }
 
-.page-item .page-link:hover {
-    background: var(--simpson-yellow);
-    transform: translateY(-2px);
-    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+.ui.pagination.menu .item:hover {
+    background: var(--simpson-yellow) !important;
 }
 
-.page-item.active .page-link {
-    background: var(--simpson-blue);
-    color: var(--simpson-white);
-    border-color: var(--simpson-dark);
+.ui.pagination.menu .active.item {
+    background: var(--simpson-blue) !important;
+    color: white !important;
 }
 
 /* ==========================================
-   ANIMACIONES
+   DROPDOWNS / MENUS
    ========================================== */
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+.ui.dropdown .menu {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2) !important;
 }
 
-.bounce-animation {
-    animation: bounce 2s infinite;
+.ui.dropdown .menu > .item {
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    margin: 2px 4px !important;
+}
+
+.ui.dropdown .menu > .item:hover {
+    background: var(--simpson-yellow) !important;
+}
+
+/* ==========================================
+   POPUP
+   ========================================== */
+
+.ui.popup {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================
+   MODAL
+   ========================================== */
+
+.ui.modal {
+    border: 4px solid var(--simpson-dark) !important;
+    border-radius: 20px !important;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ui.modal > .header {
+    background: var(--simpson-yellow) !important;
+    color: var(--simpson-dark) !important;
+    font-weight: 700 !important;
+    border-bottom: 3px solid var(--simpson-dark) !important;
+}
+
+/* ==========================================
+   AVATAR
+   ========================================== */
+
+.ui.avatar.image,
+img.ui.avatar {
+    border: 3px solid var(--simpson-dark) !important;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================
+   ANNOUNCEMENTS
+   ========================================== */
+
+.announcement {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15) !important;
+    font-weight: 600 !important;
+}
+
+/* ==========================================
+   NEWS POSTS
+   ========================================== */
+
+#news-post {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 15px !important;
+}
+
+#news-post .content .header a {
+    color: var(--simpson-blue) !important;
+    font-weight: 700 !important;
+    font-size: 1.3rem;
+}
+
+#news-post .content .header a:hover {
+    color: var(--simpson-purple) !important;
+}
+
+#news-post .meta {
+    color: var(--simpson-orange) !important;
+    font-weight: 600 !important;
+}
+
+/* ==========================================
+   DARK MODE TOGGLE
+   ========================================== */
+
+.darkmode-toggle-label {
+    background: var(--simpson-blue) !important;
+    border: 2px solid var(--simpson-dark) !important;
+}
+
+.darkmode-ball {
+    background: var(--simpson-yellow) !important;
+}
+
+/* ==========================================
+   CONTAINER ADJUSTMENTS
+   ========================================== */
+
+.ui.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes simpson-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.simpson-bounce {
+    animation: simpson-bounce 2s infinite;
 }
 
 /* ==========================================
@@ -445,45 +581,56 @@ footer a:hover {
    ========================================== */
 
 @media (max-width: 768px) {
-    .navbar-brand {
-        font-size: 1.5rem;
+    .ui.masthead h1 {
+        font-size: 1.8rem !important;
     }
-    
-    .card {
-        border-width: 3px;
-        box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
-    }
-    
-    .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+
+    .ui.card,
+    .ui.segment {
+        border-width: 2px !important;
+        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
     }
 }
 
 /* ==========================================
-   UTILIDADES
+   SCROLLBAR CUSTOM
    ========================================== */
 
-.text-simpson-yellow {
-    color: var(--simpson-yellow);
+::-webkit-scrollbar {
+    width: 12px;
 }
 
-.text-simpson-blue {
-    color: var(--simpson-blue);
+::-webkit-scrollbar-track {
+    background: var(--simpson-light);
 }
 
-.bg-simpson-yellow {
-    background-color: var(--simpson-yellow);
+::-webkit-scrollbar-thumb {
+    background: var(--simpson-yellow);
+    border: 2px solid var(--simpson-dark);
+    border-radius: 10px;
 }
 
-.bg-simpson-blue {
-    background-color: var(--simpson-blue);
+::-webkit-scrollbar-thumb:hover {
+    background: var(--simpson-orange);
 }
 
-.border-simpson {
-    border: 4px solid var(--simpson-dark) !important;
+/* ==========================================
+   LOADING SCREEN
+   ========================================== */
+
+.ui.dimmer {
+    background: rgba(255, 217, 15, 0.8) !important;
 }
 
-.shadow-simpson {
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3) !important;
+.ui.loader:after {
+    border-color: var(--simpson-blue) transparent transparent !important;
+}
+
+/* ==========================================
+   IE MESSAGE (hide)
+   ========================================== */
+
+#ie-message {
+    border: 3px solid var(--simpson-dark) !important;
+    border-radius: 12px !important;
 }

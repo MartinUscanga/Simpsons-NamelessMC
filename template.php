@@ -35,10 +35,13 @@ class Simpsons_Template extends SmartyTemplateBase
 
         parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author'], __DIR__);
 
+        $this->_settings = ROOT_PATH . '/custom/templates/' . $template['name'] . '/template_settings/settings.php';
+
         $this->assets()->include([
             AssetTree::FONT_AWESOME,
             AssetTree::JQUERY,
-            AssetTree::BOOTSTRAP,
+            AssetTree::JQUERY_COOKIE,
+            AssetTree::FOMANTIC_UI,
         ]);
 
         $this->addCSSFiles([
@@ -47,6 +50,32 @@ class Simpsons_Template extends SmartyTemplateBase
         ]);
 
         $this->getEngine()->addVariable('TEMPLATE', $template);
+        $this->getEngine()->addVariable('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
+
+        $cache->setCache('template_settings');
+        $smartyDarkMode = false;
+        $smartyNavbarColour = '';
+
+        if (defined('DARK_MODE') && DARK_MODE == '1') {
+            $smartyDarkMode = true;
+        }
+
+        if ($cache->isCached('navbarColour')) {
+            $navbarColour = $cache->retrieve('navbarColour');
+
+            if ($navbarColour != 'white') {
+                $smartyNavbarColour = $navbarColour . ' inverted';
+            }
+        }
+
+        $this->getEngine()->addVariables([
+            'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
+            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour,
+        ]);
+
+        if (defined('AUTO_LANGUAGE_VALUE')) {
+            $this->getEngine()->addVariable('AUTO_LANGUAGE_VALUE', AUTO_LANGUAGE_VALUE);
+        }
 
         $this->_template = $template;
         $this->_language = $language;
@@ -61,10 +90,6 @@ class Simpsons_Template extends SmartyTemplateBase
 
         $this->addCSSFiles([
             $this->_template['path'] . 'css/custom.css' => [],
-        ]);
-
-        $this->addJSFiles([
-            $this->_template['path'] . 'js/script.js' => [],
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
@@ -98,6 +123,18 @@ class Simpsons_Template extends SmartyTemplateBase
             'csrfToken' => Token::get(),
         ];
 
+        // Logo
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('backgroundcache');
+        $logo_image = $cache->retrieve('logo_image');
+        $JSVariables['logoImage'] = !empty($logo_image) ? $logo_image : null;
+
+        if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {
+            $this->assets()->include([
+                AssetTree::JQUERY_UI,
+            ]);
+        }
+
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
@@ -106,6 +143,12 @@ class Simpsons_Template extends SmartyTemplateBase
         }
 
         $this->addJSScript($JSVars);
+
+        $this->addJSFiles([
+            $this->_template['path'] . 'js/core/core.js' => [],
+            $this->_template['path'] . 'js/core/user.js' => [],
+            $this->_template['path'] . 'js/core/pages.js' => [],
+        ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {
             $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');

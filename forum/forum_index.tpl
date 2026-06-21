@@ -1,140 +1,165 @@
 {include file='header.tpl'}
+{include file='navbar.tpl'}
 
-<div class="container mt-4">
-    
-    <!-- Header del foro -->
-    <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 class="mb-0"><i class="fas fa-comments"></i> {$FORUM_TITLE}</h2>
-            {if isset($NEW_TOPIC_BUTTON)}
-                <a href="{$NEW_TOPIC_URL}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> {$NEW_TOPIC}
-                </a>
+<div class="ui breadcrumb" style="margin-bottom:10px;">
+    <a class="section active" href="{$BREADCRUMB_URL}">{$BREADCRUMB_TEXT}</a>
+</div>
+
+<div class="ui stackable padded grid" id="forum-index">
+    <div class="ui centered row">
+        <div class="ui eleven wide tablet twelve wide computer column">
+            <h2 class="ui header">
+                {$TITLE}
+            </h2>
+        </div>
+
+        <div class="ui five wide tablet four wide computer column">
+            <form class="ui form" method="post" action="{$SEARCH_URL}" name="searchForm">
+                <input type="hidden" name="token" value="{$TOKEN}">
+                <div class="ui fluid action input">
+                    <input type="text" name="forum_search" placeholder="{$SEARCH}" minlength="3" maxlength="128">
+                    <button type="submit" class="ui primary icon button"><i class="search icon"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="ui stackable padded grid" id="forum-index">
+    <div class="ui centered row">
+        {if count($WIDGETS_LEFT)}
+        <div class="ui five wide tablet four wide computer column">
+            {foreach from=$WIDGETS_LEFT item=widget}
+            {$widget}
+            {/foreach}
+        </div>
+        {/if}
+        <div
+            class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
+            {if isset($SPAM_INFO)}
+            <div class="ui warning icon message">
+                <i class="exclamation icon"></i>
+                <div class="content">
+                    <div class="header">{$FORUM_SPAM_WARNING_TITLE}</div>
+                    {$SPAM_INFO}
+                </div>
+            </div>
+            {/if}
+
+            {foreach from=$FORUMS key=category item=forum}
+            {if !empty($forum.subforums)}
+            <div class="ui padded segment" id="forum-node">
+                <h3 class="ui header"><a href="{$forum.link}">{$forum.title}</a></h3>
+                <div class="ui divider"></div>
+                <div class="ui middle aligned stackable grid">
+                    {foreach from=$forum.subforums item=subforum}
+                    {if $subforum->redirect_forum neq 1}
+                    <div class="centered row">
+                        <div class="one wide column mobile hidden">{if empty($subforum->icon)}
+                            <i class="ui large comment icon middle aligned"></i>
+                            {else}{$subforum->icon}{/if}
+                        </div>
+                        <div class="nine wide column">
+                            <a class="header" href="{$subforum->link}" data-toggle="popup">{$subforum->forum_title}</a>
+                            <div class="ui wide popup">
+                                <h4 class="ui header">{$subforum->forum_title}</h4>
+                                {if !empty($subforum->forum_description)}
+                                <br />
+                                {$subforum->forum_description}
+                                {/if}
+                                <br />{$TOPICS|capitalize} <b>{$subforum->topics}</b>
+                                &middot; {$POSTS|capitalize} <b>{$subforum->posts}</b>
+                                {if isset($subforum->subforums)}
+                                <br />
+                                {$SUBFORUMS}:
+                                {assign i 1}
+                                {foreach from=$subforum->subforums item=sub_subforum}
+                                {if $i != 1}&middot; {/if}<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
+                                {assign i $i+1}
+                                {/foreach}
+                                {/if}
+                            </div>
+                            <div class="description">
+                                {$TOPICS|capitalize}: <b>{$subforum->topics}</b>
+                                &middot; {$POSTS|capitalize}: <b>{$subforum->posts}</b>
+                                {if isset($subforum->subforums)}
+                                <div class="ui top right pointing inline dropdown">
+                                    &middot; {$SUBFORUMS} <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="header">{$SUBFORUMS}</div>
+                                        {foreach from=$subforum->subforums item=sub_subforum}
+                                        <a class="item" href="{$sub_subforum->link}">
+                                            {if empty($sub_subforum->icon)}
+                                            <i class="comment icon"></i>
+                                            {else}{$sub_subforum->icon}{/if} {$sub_subforum->title}
+                                        </a>
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="six wide column mobile hidden">
+                            {if isset($subforum->last_post)}
+                            <img class="ui avatar image left floated" src="{$subforum->last_post->avatar}"
+                                alt="{$subforum->last_post->username}">
+                            <a class="header" href="{$subforum->last_post->link}"
+                                data-toggle="popup">{$subforum->last_post->title}</a>
+                            <div class="ui wide popup">
+                                <h4 class="ui header">{$subforum->last_post->title}</h4>
+                                <br />{$BY|capitalize} <a style="{$subforum->last_post->user_style}"
+                                    href="{$subforum->last_post->profile}">{$subforum->last_post->username}</a>
+                                | {$subforum->last_post->post_date}
+                            </div>
+                            <div class="description">
+                                <a style="{$subforum->last_post->user_style}" href="{$subforum->last_post->profile}"
+                                    data-poload="{$USER_INFO_URL}{$subforum->last_post->post_creator}">{$subforum->last_post->username}</a>
+                                &middot; <span data-toggle="tooltip"
+                                    data-content="{$subforum->last_post->post_date}">{$subforum->last_post->date_friendly}</span>
+                            </div>
+                            {else}
+                            <div class="description" style="padding: 8px 0">{$NO_TOPICS}</div>
+                            {/if}
+                        </div>
+                    </div>
+                    {else}
+                    <div class="centered row">
+                        <div class="one wide column mobile hidden">{if empty($subforum->icon)}<i
+                                class="ui large comment icon middle aligned"></i>{else}{$subforum->icon}{/if}</div>
+                        <div class="fifteen wide column">
+                            <a class="header" data-toggle="modal" {if isset($subforum->redirect_confirm)}
+                                href="#"
+                                data-target="#modal-redirect-{$subforum->id}"
+                                {else}
+                                href="{$subforum->redirect_url}"
+                                {/if}>{$subforum->forum_title}</a>
+                        </div>
+                    </div>
+                    <div class="ui mini modal" id="modal-redirect-{$subforum->id}">
+                        <div class="content">
+                            {$subforum->redirect_confirm}
+                        </div>
+                        <div class="actions">
+                            <a class="ui negative button">{$NO}</a>
+                            <a class="ui positive button" href="{$subforum->redirect_url}" target="_blank"
+                                rel="noopener nofollow">{$YES}</a>
+                        </div>
+                    </div>
+                    {/if}
+                    {/foreach}
+                </div>
+            </div>
+            {/if}
+            {/foreach}
+        </div>
+        <div class="ui five wide tablet four wide computer column">
+            {if count($WIDGETS_RIGHT)}
+            {foreach from=$WIDGETS_RIGHT item=widget}
+            {$widget}
+            {/foreach}
             {/if}
         </div>
     </div>
-    
-    <!-- Categorías del foro -->
-    {foreach from=$FORUM_CATEGORIES item=category}
-        <div class="forum-category mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 style="color: var(--simpson-dark); font-weight: 700;">
-                    <i class="{$category.icon}"></i> {$category.name}
-                </h3>
-            </div>
-            
-            {if isset($category.description)}
-                <p class="mb-3" style="color: var(--simpson-dark); font-weight: 600;">{$category.description}</p>
-            {/if}
-            
-            <!-- Subforos -->
-            {foreach from=$category.subforums item=forum}
-                <div class="forum-topic">
-                    <div class="row align-items-center">
-                        <!-- Icono -->
-                        <div class="col-auto">
-                            <div class="text-center" style="width: 50px; height: 50px; background: var(--simpson-yellow); border: 3px solid var(--simpson-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="{$forum.icon}" style="font-size: 1.5rem; color: var(--simpson-blue);"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- Info del foro -->
-                        <div class="col">
-                            <h5 class="mb-1">
-                                <a href="{$forum.link}" style="color: var(--simpson-blue); text-decoration: none; font-weight: 700;">
-                                    {$forum.name}
-                                </a>
-                            </h5>
-                            <p class="mb-0 text-muted">{$forum.description}</p>
-                        </div>
-                        
-                        <!-- Estadísticas -->
-                        <div class="col-auto text-center d-none d-md-block">
-                            <div class="mb-1">
-                                <span class="badge" style="background: var(--simpson-blue);">
-                                    <i class="fas fa-file-alt"></i> {$forum.topics}
-                                </span>
-                            </div>
-                            <div>
-                                <span class="badge" style="background: var(--simpson-green);">
-                                    <i class="fas fa-comments"></i> {$forum.posts}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- Último mensaje -->
-                        {if isset($forum.last_post)}
-                            <div class="col-md-3 d-none d-md-block">
-                                <div style="background: var(--simpson-light); padding: 0.75rem; border-radius: 10px;">
-                                    <small class="d-block">
-                                        <strong><a href="{$forum.last_post.link}" style="color: var(--simpson-dark);">{$forum.last_post.title}</a></strong>
-                                    </small>
-                                    <small class="text-muted">
-                                        Por <a href="{$forum.last_post.author_profile}">{$forum.last_post.author}</a><br>
-                                        {$forum.last_post.time}
-                                    </small>
-                                </div>
-                            </div>
-                        {/if}
-                    </div>
-                </div>
-            {/foreach}
-        </div>
-    {/foreach}
-    
-    <!-- Usuarios en línea -->
-    {if isset($ONLINE_USERS)}
-        <div class="card mt-4">
-            <div class="card-header">
-                <i class="fas fa-users"></i> ¿Quién está en línea? ({$ONLINE_USERS_COUNT} usuarios)
-            </div>
-            <div class="card-body">
-                {foreach from=$ONLINE_USERS item=user}
-                    <a href="{$user.profile}" class="d-inline-block me-2 mb-2">
-                        <img src="{$user.avatar}" alt="{$user.username}" class="rounded-circle" style="width: 32px; height: 32px; border: 2px solid var(--simpson-dark);" title="{$user.username}">
-                    </a>
-                {/foreach}
-            </div>
-        </div>
-    {/if}
-    
-    <!-- Estadísticas del foro -->
-    {if isset($FORUM_STATISTICS)}
-        <div class="card mt-4">
-            <div class="card-header">
-                <i class="fas fa-chart-bar"></i> Estadísticas del Foro
-            </div>
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-md-3">
-                        <div class="p-3" style="background: var(--simpson-yellow); border: 3px solid var(--simpson-dark); border-radius: 15px;">
-                            <h3 style="color: var(--simpson-blue); font-weight: 700;">{$FORUM_STATISTICS.topics}</h3>
-                            <p class="mb-0"><strong>Temas</strong></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="p-3" style="background: var(--simpson-blue); border: 3px solid var(--simpson-dark); border-radius: 15px; color: white;">
-                            <h3 style="font-weight: 700;">{$FORUM_STATISTICS.posts}</h3>
-                            <p class="mb-0"><strong>Mensajes</strong></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="p-3" style="background: var(--simpson-green); border: 3px solid var(--simpson-dark); border-radius: 15px; color: white;">
-                            <h3 style="font-weight: 700;">{$FORUM_STATISTICS.users}</h3>
-                            <p class="mb-0"><strong>Usuarios</strong></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="p-3" style="background: var(--simpson-orange); border: 3px solid var(--simpson-dark); border-radius: 15px; color: white;">
-                            <h3 style="font-weight: 700;">{$FORUM_STATISTICS.online}</h3>
-                            <p class="mb-0"><strong>En Línea</strong></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {/if}
-    
 </div>
 
 {include file='footer.tpl'}

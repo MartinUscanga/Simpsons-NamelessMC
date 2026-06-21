@@ -1,136 +1,144 @@
-    </main>
-    
-    <!-- Footer estilo Los Simpson -->
-    <footer class="mt-5">
-        <div class="container">
-            <div class="row py-4">
-                <!-- Columna 1: Info del sitio -->
-                <div class="col-md-4 mb-3">
-                    <h5>
-                        <i class="fas fa-home"></i> {$SITE_NAME}
-                    </h5>
-                    <p style="color: var(--simpson-dark); font-weight: 600;">
-                        {if isset($SITE_DESCRIPTION)}
-                            {$SITE_DESCRIPTION}
-                        {else}
-                            ¡Bienvenido a nuestro servidor estilo Springfield! Un lugar donde la diversión nunca termina.
-                        {/if}
-                    </p>
-                    <div class="mt-3">
-                        {if isset($SOCIAL_MEDIA_LINKS)}
-                            {foreach from=$SOCIAL_MEDIA_LINKS item=social}
-                                <a href="{$social.link}" target="_blank" class="btn btn-sm me-2 mb-2" style="background: var(--simpson-blue); color: white; border: 2px solid var(--simpson-dark); border-radius: 10px;">
-                                    <i class="{$social.icon}"></i>
-                                </a>
+    {if count($WIDGETS_FOOTER)}
+        {foreach from=$WIDGETS_FOOTER item=widget}
+            {$widget}
+        {/foreach}
+    {/if}
+</div>
+</div>
+
+<div class="ui inverted vertical footer segment" id="footer">
+    <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+            <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}six{else}eight{/if} wide column">
+                <h4 class="ui inverted header">{$SITE_NAME}</h4>
+                <div class="ui inverted link list">
+                    <span class="item">&copy; {$SITE_NAME} {'Y'|date}</span>
+                    <span class="item">Powered By <a href="https://namelessmc.com">NamelessMC</a></span>
+                    {if $PAGE_LOAD_TIME}
+                    <span class="item" id="page_load"></span>
+                    {/if}
+                    <span class="item" id="darkmode">
+                        <input type="checkbox" class="darkmode-toggle" id="darkmode-toggle" onclick="toggleDarkLightMode()">
+                        <label for="darkmode-toggle" class="darkmode-toggle-label">
+                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sun"></i>
+                            <div class="darkmode-ball"></div>
+                        </label>
+
+                        <script type="text/javascript">
+                            if (document.body.classList.contains('dark')) {
+                                document.getElementById("darkmode-toggle").checked = true;
+                            } else {
+                                document.getElementById("darkmode-toggle").checked = false;
+                            }
+                        </script>
+                    </span>
+                    {if isset($AUTO_LANGUAGE)}
+                        <a class="item" href="javascript:" onclick="toggleAutoLanguage()" id="auto-language"></a>
+                    {/if}
+                </div>
+            </div>
+            <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}five{else}eight{/if} wide column">
+                <h4 class="ui inverted header">{$FOOTER_LINKS_TITLE}</h4>
+                <div class="ui inverted link list">
+                    {foreach from=$FOOTER_NAVIGATION key=name item=item}
+                    {if isset($item.items)}
+                    <div class="ui dropdown item">
+                        <span class="text">{$item.icon} {$item.title} <i class="dropdown icon"></i></span>
+                        <div class="menu">
+                            <div class="header">{$item.title}</div>
+                            {foreach from=$item.items item=dropdown}
+                            <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon}
+                                {$dropdown.title}</a>
                             {/foreach}
-                        {/if}
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Columna 2: Enlaces útiles -->
-                <div class="col-md-4 mb-3">
-                    <h5>
-                        <i class="fas fa-link"></i> Enlaces Rápidos
-                    </h5>
-                    <ul class="list-unstyled">
-                        {foreach from=$FOOTER_NAVIGATION key=name item=item}
-                            <li class="mb-2">
-                                <a href="{$item.link}" target="{$item.target}">
-                                    {if isset($item.icon)}<i class="{$item.icon}"></i>{/if}
-                                    {$item.title}
-                                </a>
-                            </li>
-                        {/foreach}
-                    </ul>
-                </div>
-                
-                <!-- Columna 3: Stats del servidor -->
-                <div class="col-md-4 mb-3">
-                    <h5>
-                        <i class="fas fa-chart-bar"></i> Estadísticas
-                    </h5>
-                    {if isset($SERVER_STATS)}
-                        <div class="widget" style="padding: 1rem;">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span><i class="fas fa-users"></i> Usuarios:</span>
-                                <strong style="color: var(--simpson-blue);">{$SERVER_STATS.users}</strong>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span><i class="fas fa-comments"></i> Mensajes:</span>
-                                <strong style="color: var(--simpson-green);">{$SERVER_STATS.posts}</strong>
-                            </div>
-                            {if isset($SERVER_STATS.online)}
-                                <div class="d-flex justify-content-between">
-                                    <span><i class="fas fa-circle text-success"></i> En línea:</span>
-                                    <strong style="color: var(--simpson-orange);">{$SERVER_STATS.online}</strong>
-                                </div>
-                            {/if}
-                        </div>
+                    {else}
+                    <a class="item" href="{$item.link}" target="{$item.target}">{$item.icon} {$item.title}</a>
                     {/if}
-                    
-                    {if isset($MINECRAFT_SERVER)}
-                        <div class="mt-3 p-2" style="background: var(--simpson-green); border: 3px solid var(--simpson-dark); border-radius: 12px; color: white; text-align: center;">
-                            <strong><i class="fas fa-server"></i> IP del Servidor:</strong><br>
-                            <code style="background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 8px; color: white; font-weight: 700;">
-                                {$MINECRAFT_SERVER}
-                            </code>
-                        </div>
-                    {/if}
+                    {/foreach}
+                    <a class="item" href="{$TERMS_LINK}">{$TERMS_TEXT}</a>
+                    <a class="item" href="{$PRIVACY_LINK}">{$PRIVACY_TEXT}</a>
                 </div>
             </div>
-            
-            <!-- Barra inferior -->
-            <div class="row border-top pt-3" style="border-color: var(--simpson-orange) !important; border-width: 3px !important;">
-                <div class="col-md-6 text-center text-md-start mb-2">
-                    <span style="color: var(--simpson-dark); font-weight: 600;">
-                        &copy; {$CURRENT_YEAR} {$SITE_NAME}. 
-                    </span>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <span style="color: var(--simpson-dark); font-weight: 600;">
-                        Powered by <a href="https://namelessmc.com" target="_blank" style="color: var(--simpson-blue); font-weight: 700;">NamelessMC</a>
-                    </span>
-                    <span class="mx-2">|</span>
-                    <span style="color: var(--simpson-purple); font-weight: 700;">
-                        <i class="fas fa-paint-brush"></i> Simpsons Theme
-                    </span>
+            {if $SOCIAL_MEDIA_ICONS|count > 0}
+            <div class="five wide column">
+                <h4 class="ui inverted header">{$FOOTER_SOCIAL_TITLE}</h4>
+                <div class="ui inverted link list">
+                    {foreach from=$SOCIAL_MEDIA_ICONS item=icon}
+                    <a class="item" href="{$icon.link}">{$icon.text}</a>
+                    {/foreach}
                 </div>
             </div>
-            
-            <!-- Easter egg: Frase de Homer -->
-            <div class="text-center mt-3">
-                <small style="color: var(--simpson-brown); font-style: italic; font-weight: 600;">
-                    "¡D'oh! No olvides divertirte en nuestro servidor"
-                </small>
-            </div>
+            {/if}
         </div>
-    </footer>
-    
-    {foreach from=$TEMPLATE_JS_FOOTER item=script}
-        {$script}
-    {/foreach}
-    
-    {if isset($WIDGETS_RIGHT) || isset($WIDGETS_LEFT)}
-        {foreach from=$WIDGETS_RIGHT item=widget}
-            {$widget}
-        {/foreach}
-        {foreach from=$WIDGETS_LEFT item=widget}
-            {$widget}
-        {/foreach}
-    {/if}
-    
-    {if isset($GLOBAL_MESSAGE)}
-        <script>
-            $(document).ready(function() {
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "timeOut": "5000"
-                };
-                toastr.{$GLOBAL_MESSAGE.type}('{$GLOBAL_MESSAGE.message}');
+    </div>
+</div>
+
+{if isset($GLOBAL_WARNING_TITLE)}
+<div class="ui medium modal" id="modal-acknowledge">
+    <div class="header">
+        {$GLOBAL_WARNING_TITLE}
+    </div>
+    <div class="content">
+        {$GLOBAL_WARNING_REASON}
+    </div>
+    <div class="actions">
+        <a class="ui positive button" href="{$GLOBAL_WARNING_ACKNOWLEDGE_LINK}">{$GLOBAL_WARNING_ACKNOWLEDGE}</a>
+    </div>
+</div>
+{/if}
+
+{foreach from=$TEMPLATE_JS item=script}
+    {$script}
+{/foreach}
+
+{if isset($GLOBAL_WARNING_TITLE)}
+<script type="text/javascript">
+    $('#modal-acknowledge').modal({ closable: false }).modal('show');
+</script>
+{/if}
+
+<script type="text/javascript">
+    function toggleDarkLightMode() {
+        $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
+            .done(function () {
+                window.location.reload();
             });
-        </script>
+
+        return false;
+    }
+
+    {if isset($AUTO_LANGUAGE)}
+        const autoLanguage = document.getElementById('auto-language');
+        const autoLanguageValue = $.cookie('auto_language') ?? 'true';
+        autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
+        {if isset($AUTO_LANGUAGE_VALUE)}
+            if (autoLanguageValue) {
+                autoLanguage.title = '{$AUTO_LANGUAGE_VALUE}';
+            }
+        {/if}
+
+        function toggleAutoLanguage() {
+            $.cookie(
+                'auto_language',
+                autoLanguageValue === 'true' ? 'false' : 'true',
+                { path: '/' }
+            );
+            window.location.reload();
+        }
     {/if}
+</script>
+
+{if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
+    <script src="{$TEMPLATE.path}/js/core/update.js"></script>
+{/if}
+
+{if !isset($EXCLUDE_END_BODY)}
+    {if isset($DEBUGBAR_HTML)}
+    {$DEBUGBAR_HTML}
+{/if}
 </body>
+
 </html>
+{/if}
