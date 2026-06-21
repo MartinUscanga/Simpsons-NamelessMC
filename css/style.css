@@ -1065,6 +1065,10 @@ a.badge-dark:focus {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     z-index: 100 !important;
     overflow: visible !important;
+}
+
+.ui.dropdown .menu.visible,
+.ui.dropdown .menu.transition.visible {
     opacity: 1 !important;
 }
 
@@ -1095,8 +1099,10 @@ a.badge-dark:focus {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     z-index: 99999 !important;
     text-align: left;
+}
+
+.ui.popup.visible {
     opacity: 1 !important;
-    transform: none !important;
 }
 
 .ui.popup .ui.header {
