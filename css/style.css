@@ -1,0 +1,489 @@
+/*
+ * Los Simpson Theme CSS
+ * NamelessMC v2.x
+ * Inspired by The Simpsons TV Show
+ */
+
+/* ==========================================
+   VARIABLES Y RESET
+   ========================================== */
+
+:root {
+    --simpson-yellow: #FFD90F;
+    --simpson-blue: #6BADE4;
+    --simpson-sky: #8ED8F8;
+    --simpson-pink: #FED7D8;
+    --simpson-brown: #8B4513;
+    --simpson-green: #90C054;
+    --simpson-orange: #FFA500;
+    --simpson-purple: #9B59B6;
+    --simpson-red: #E74C3C;
+    --simpson-dark: #2C3E50;
+    --simpson-light: #ECF0F1;
+    --simpson-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, var(--simpson-sky) 0%, var(--simpson-blue) 100%);
+    background-attachment: fixed;
+    color: var(--simpson-dark);
+    overflow-x: hidden;
+}
+
+/* Nubes de fondo estilo Springfield */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(ellipse 200px 100px at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+        radial-gradient(ellipse 300px 150px at 80% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+        radial-gradient(ellipse 250px 120px at 50% 70%, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.container, .container-fluid {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   NAVBAR ESTILO SIMPSON
+   ========================================== */
+
+.navbar {
+    background: var(--simpson-yellow) !important;
+    border-bottom: 5px solid var(--simpson-orange);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    font-weight: 700;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    color: var(--simpson-blue) !important;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.1) rotate(-2deg);
+    color: var(--simpson-purple) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--simpson-dark) !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--simpson-blue);
+    color: var(--simpson-white) !important;
+    transform: translateY(-3px);
+}
+
+.navbar-nav .nav-link.active {
+    background: var(--simpson-orange);
+    color: var(--simpson-white) !important;
+}
+
+/* ==========================================
+   CARDS Y CONTENEDORES
+   ========================================== */
+
+.card {
+    background: var(--simpson-white);
+    border: 4px solid var(--simpson-dark);
+    border-radius: 20px;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    background: var(--simpson-yellow) !important;
+    border-bottom: 3px solid var(--simpson-orange);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--simpson-dark);
+    padding: 1rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+    background: var(--simpson-white);
+}
+
+.card-footer {
+    background: var(--simpson-light) !important;
+    border-top: 3px solid var(--simpson-dark);
+    padding: 1rem 1.5rem;
+}
+
+/* ==========================================
+   BOTONES ESTILO SIMPSON
+   ========================================== */
+
+.btn {
+    font-family: 'Comic Neue', cursive;
+    font-weight: 700;
+    border-radius: 15px;
+    padding: 0.75rem 1.5rem;
+    border: 3px solid var(--simpson-dark);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: var(--simpson-blue);
+    color: var(--simpson-white);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--simpson-purple);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success {
+    background: var(--simpson-green);
+    color: var(--simpson-white);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success:hover {
+    background: #7AB33D;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-warning {
+    background: var(--simpson-orange);
+    color: var(--simpson-white);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-warning:hover {
+    background: #E89400;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger {
+    background: var(--simpson-red);
+    color: var(--simpson-white);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:hover {
+    background: #C0392B;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   FOOTER ESTILO SIMPSON
+   ========================================== */
+
+footer {
+    background: var(--simpson-yellow);
+    border-top: 5px solid var(--simpson-orange);
+    padding: 2rem 0;
+    margin-top: 3rem;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+}
+
+footer h5 {
+    color: var(--simpson-blue);
+    font-weight: 700;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    color: var(--simpson-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+footer a:hover {
+    color: var(--simpson-purple);
+    transform: translateX(5px);
+    display: inline-block;
+}
+
+/* ==========================================
+   PANELES Y WIDGETS
+   ========================================== */
+
+.widget {
+    background: var(--simpson-white);
+    border: 4px solid var(--simpson-dark);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.widget-header {
+    background: var(--simpson-yellow);
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 3px solid var(--simpson-orange);
+    border-radius: 16px 16px 0 0;
+    font-weight: 700;
+    color: var(--simpson-dark);
+}
+
+/* ==========================================
+   FORUM STYLES
+   ========================================== */
+
+.forum-category {
+    background: var(--simpson-pink);
+    border: 4px solid var(--simpson-dark);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.forum-topic {
+    background: var(--simpson-white);
+    border: 3px solid var(--simpson-blue);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.forum-topic:hover {
+    transform: translateX(5px);
+    box-shadow: 5px 5px 0px var(--simpson-yellow);
+}
+
+/* ==========================================
+   USER PROFILE
+   ========================================== */
+
+.profile-header {
+    background: linear-gradient(135deg, var(--simpson-yellow) 0%, var(--simpson-orange) 100%);
+    border: 4px solid var(--simpson-dark);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.avatar {
+    border: 5px solid var(--simpson-dark);
+    border-radius: 50%;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   FORMS
+   ========================================== */
+
+.form-control {
+    border: 3px solid var(--simpson-dark);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-family: 'Comic Neue', cursive;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--simpson-blue);
+    box-shadow: 0 0 0 0.2rem rgba(107, 173, 228, 0.25);
+    transform: scale(1.02);
+}
+
+.form-label {
+    font-weight: 700;
+    color: var(--simpson-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================
+   ALERTS
+   ========================================== */
+
+.alert {
+    border: 3px solid var(--simpson-dark);
+    border-radius: 15px;
+    font-weight: 600;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.alert-success {
+    background: var(--simpson-green);
+    color: var(--simpson-white);
+}
+
+.alert-danger {
+    background: var(--simpson-red);
+    color: var(--simpson-white);
+}
+
+.alert-warning {
+    background: var(--simpson-orange);
+    color: var(--simpson-white);
+}
+
+.alert-info {
+    background: var(--simpson-blue);
+    color: var(--simpson-white);
+}
+
+/* ==========================================
+   BADGES
+   ========================================== */
+
+.badge {
+    border: 2px solid var(--simpson-dark);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    font-weight: 700;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.badge-primary {
+    background: var(--simpson-blue);
+}
+
+.badge-success {
+    background: var(--simpson-green);
+}
+
+.badge-warning {
+    background: var(--simpson-orange);
+}
+
+.badge-danger {
+    background: var(--simpson-red);
+}
+
+/* ==========================================
+   PAGINATION
+   ========================================== */
+
+.pagination {
+    margin-top: 2rem;
+}
+
+.page-item .page-link {
+    border: 3px solid var(--simpson-dark);
+    color: var(--simpson-dark);
+    font-weight: 700;
+    margin: 0 0.25rem;
+    border-radius: 12px;
+    background: var(--simpson-white);
+    transition: all 0.3s ease;
+}
+
+.page-item .page-link:hover {
+    background: var(--simpson-yellow);
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.page-item.active .page-link {
+    background: var(--simpson-blue);
+    color: var(--simpson-white);
+    border-color: var(--simpson-dark);
+}
+
+/* ==========================================
+   ANIMACIONES
+   ========================================== */
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.bounce-animation {
+    animation: bounce 2s infinite;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        border-width: 3px;
+        box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==========================================
+   UTILIDADES
+   ========================================== */
+
+.text-simpson-yellow {
+    color: var(--simpson-yellow);
+}
+
+.text-simpson-blue {
+    color: var(--simpson-blue);
+}
+
+.bg-simpson-yellow {
+    background-color: var(--simpson-yellow);
+}
+
+.bg-simpson-blue {
+    background-color: var(--simpson-blue);
+}
+
+.border-simpson {
+    border: 4px solid var(--simpson-dark) !important;
+}
+
+.shadow-simpson {
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3) !important;
+}
