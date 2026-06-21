@@ -35,10 +35,10 @@
             }
         });
 
-        // Intersection Observer animation for cards (fade in on scroll)
+        // Intersection Observer animation for cards only (NOT segments - they contain popups)
         // Only apply to elements that are NOT already in the viewport
         if (typeof IntersectionObserver !== 'undefined') {
-            var cards = document.querySelectorAll('.ui.card, .ui.fluid.card');
+            var cards = document.querySelectorAll('.ui.fluid.card, #news-post');
             var cardObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {

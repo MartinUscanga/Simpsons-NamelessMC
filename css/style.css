@@ -11,22 +11,22 @@
 
 :root {
     --simpson-yellow: #FFD90F;
-    --simpson-blue: #6BADE4;
+    --simpson-blue: #5A9FD4;
     --simpson-sky: #8ED8F8;
     --simpson-pink: #FED7D8;
     --simpson-brown: #8B4513;
-    --simpson-green: #90C054;
-    --simpson-orange: #FFA500;
-    --simpson-purple: #9B59B6;
-    --simpson-red: #E74C3C;
+    --simpson-green: #6EAD3A;
+    --simpson-orange: #E8920D;
+    --simpson-purple: #7E57A0;
+    --simpson-red: #D04040;
     --simpson-dark: #2C3E50;
-    --simpson-light: #ECF0F1;
+    --simpson-light: #F4F6F8;
     --simpson-white: #FFFFFF;
     --simpson-font: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
-    --border-radius: 12px;
-    --card-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
-    --card-shadow-hover: 6px 6px 0px rgba(0, 0, 0, 0.2);
-    --border-width: 2px;
+    --border-radius: 10px;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --border-width: 1px;
 }
 
 /* ==========================================
@@ -35,12 +35,12 @@
 
 html,
 body {
-    background: #e8f4fd;
+    background: #f0f5fa;
     font-family: var(--simpson-font) !important;
 }
 
 body.pushable > .pusher {
-    background: linear-gradient(180deg, #d4eefb 0%, #e8f4fd 50%, #f0f8ff 100%);
+    background: #f0f5fa;
     background-attachment: fixed;
     display: flex;
     min-height: 100vh;
@@ -74,8 +74,8 @@ a:hover {
     background: var(--simpson-yellow);
     padding: 10px;
     margin: 0;
-    border-bottom: 3px solid var(--simpson-orange);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border-bottom: 2px solid var(--simpson-orange);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .ui.secondary.menu .toc.item {
@@ -90,7 +90,7 @@ a:hover {
     font-weight: 700 !important;
     color: var(--simpson-dark) !important;
     border-radius: 8px !important;
-    transition: all 0.25s ease !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
 }
 
 #navbar .item:hover {
@@ -189,17 +189,17 @@ a:hover {
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 20px;
-    padding: 3rem 0;
+    padding: 2.5rem 0;
     border-radius: 0;
-    border-bottom: 4px solid var(--simpson-dark);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid var(--simpson-dark);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     color: var(--simpson-dark);
 }
 
 .ui.masthead h1 {
     color: var(--simpson-dark) !important;
-    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
-    font-size: 2.2rem !important;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+    font-size: 2rem !important;
 }
 
 .ui.masthead .connect-server {
@@ -237,8 +237,9 @@ a:hover {
 .ui.segment {
     background: #fff;
     border-radius: var(--border-radius);
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15);
+    border: var(--border-width) solid rgba(44, 62, 80, 0.1);
     box-shadow: var(--card-shadow);
+    overflow: visible;
 }
 
 .ui.segment .ui.list .list > .item .header,
@@ -259,15 +260,16 @@ a:hover {
    ========================================== */
 
 #news-post {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.12) !important;
     border-radius: var(--border-radius) !important;
     box-shadow: var(--card-shadow) !important;
     transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+    overflow: visible !important;
 }
 
 #news-post:hover {
     box-shadow: var(--card-shadow-hover) !important;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 #news-post .badge,
@@ -670,16 +672,17 @@ a:hover {
 
 .ui.card,
 .ui.cards > .card {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.12) !important;
     border-radius: var(--border-radius) !important;
     box-shadow: var(--card-shadow) !important;
-    transition: all 0.3s ease !important;
+    transition: box-shadow 0.3s ease, transform 0.3s ease !important;
     font-family: var(--simpson-font);
+    overflow: visible !important;
 }
 
 .ui.card:hover,
 .ui.cards > .card:hover {
-    transform: translateY(-2px) !important;
+    transform: translateY(-1px) !important;
     box-shadow: var(--card-shadow-hover) !important;
 }
 
@@ -706,8 +709,8 @@ a:hover {
     margin: auto 0 -.5rem 0;
     padding: 3em 0;
     background: var(--simpson-yellow) !important;
-    border-top: 4px solid var(--simpson-orange) !important;
-    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) !important;
+    border-top: 3px solid var(--simpson-orange) !important;
+    box-shadow: none !important;
     border-radius: 0 !important;
 }
 
@@ -749,20 +752,21 @@ a:hover {
    ========================================== */
 
 .ui.table {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.1) !important;
     border-radius: var(--border-radius) !important;
     font-family: var(--simpson-font);
+    overflow: visible;
 }
 
 .ui.table thead th {
-    background: var(--simpson-yellow) !important;
+    background: rgba(255, 217, 15, 0.25) !important;
     color: var(--simpson-dark) !important;
     font-weight: 700 !important;
-    border-bottom: 2px solid rgba(44, 62, 80, 0.15) !important;
+    border-bottom: 2px solid rgba(44, 62, 80, 0.1) !important;
 }
 
 .ui.table tr:hover {
-    background: rgba(255, 217, 15, 0.05) !important;
+    background: rgba(255, 217, 15, 0.04) !important;
 }
 
 @media (max-width: 576px) {
@@ -796,7 +800,7 @@ a:hover {
     font-family: var(--simpson-font) !important;
     font-weight: 700 !important;
     border-radius: var(--border-radius) !important;
-    transition: all 0.25s ease !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
 }
 
 .ui.primary.button {
@@ -804,7 +808,7 @@ a:hover {
 }
 
 .ui.primary.button:hover {
-    background: #5a9dd5 !important;
+    background: #4a8fC4 !important;
     transform: translateY(-1px);
 }
 
@@ -873,14 +877,14 @@ a:hover {
     border: var(--border-width) solid rgba(44, 62, 80, 0.2) !important;
     border-radius: var(--border-radius) !important;
     font-family: var(--simpson-font) !important;
-    transition: all 0.3s ease !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .ui.form input:focus,
 .ui.form textarea:focus,
 .ui.input > input:focus {
     border-color: var(--simpson-blue) !important;
-    box-shadow: 0 0 0 2px rgba(107, 173, 228, 0.2) !important;
+    box-shadow: 0 0 0 2px rgba(90, 159, 212, 0.15) !important;
 }
 
 /* ==========================================
@@ -1028,9 +1032,9 @@ a.badge-dark:focus {
    ========================================== */
 
 .ui.pagination.menu {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.1) !important;
     border-radius: var(--border-radius) !important;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .ui.pagination.menu .item {
@@ -1056,17 +1060,29 @@ a.badge-dark:focus {
    ========================================== */
 
 .ui.dropdown .menu {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.12) !important;
     border-radius: var(--border-radius) !important;
-    box-shadow: var(--card-shadow) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    z-index: 100 !important;
+    overflow: visible !important;
+    opacity: 1 !important;
 }
 
 .ui.dropdown .menu > .item {
     font-weight: 600 !important;
+    transition: background 0.15s ease !important;
 }
 
 .ui.dropdown .menu > .item:hover {
-    background: rgba(255, 217, 15, 0.15) !important;
+    background: rgba(255, 217, 15, 0.12) !important;
+}
+
+/* Ensure dropdowns inside cards/segments are always visible */
+.ui.card .ui.dropdown .menu,
+.ui.segment .ui.dropdown .menu,
+.ui.fluid.card .ui.dropdown .menu {
+    z-index: 101 !important;
+    position: absolute !important;
 }
 
 /* ==========================================
@@ -1074,15 +1090,23 @@ a.badge-dark:focus {
    ========================================== */
 
 .ui.popup {
-    border: var(--border-width) solid rgba(44, 62, 80, 0.15) !important;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.12) !important;
     border-radius: var(--border-radius) !important;
-    box-shadow: var(--card-shadow) !important;
-    z-index: 99999;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    z-index: 99999 !important;
     text-align: left;
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .ui.popup .ui.header {
     margin: 0;
+}
+
+/* Fix for popups inside cards being cut off or invisible */
+.ui.card .ui.popup,
+.ui.segment .ui.popup {
+    z-index: 99999 !important;
 }
 
 /* ==========================================
@@ -1091,7 +1115,7 @@ a.badge-dark:focus {
 
 .ui.modal {
     border-radius: var(--border-radius) !important;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2) !important;
 }
 
 .ui.modal > .header {
