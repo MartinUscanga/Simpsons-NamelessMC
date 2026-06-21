@@ -148,6 +148,7 @@ class Simpsons_Template extends SmartyTemplateBase
             $this->_template['path'] . 'js/core/core.js' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
             $this->_template['path'] . 'js/core/pages.js' => [],
+            $this->_template['path'] . 'js/script.js' => [],
         ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {

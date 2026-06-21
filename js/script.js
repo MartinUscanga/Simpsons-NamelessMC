@@ -1,32 +1,28 @@
 /**
  * Los Simpson Theme JavaScript
- * NamelessMC v2.x
+ * NamelessMC v2.2.x
+ * Uses Fomantic UI (not Bootstrap)
  */
 
 (function($) {
     'use strict';
-    
-    // Esperar a que el documento esté listo
+
     $(document).ready(function() {
-        
-        // Inicializar tooltips de Bootstrap
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
+
+        // Initialize Fomantic UI tooltips/popups
+        $('.ui.popup-trigger').popup({
+            hoverable: true
         });
-        
-        // Inicializar popovers de Bootstrap
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl);
-        });
-        
-        // Smooth scroll para enlaces ancla
+
+        // Initialize Fomantic UI dropdowns (additional ones not handled by core.js)
+        $('.ui.dropdown:not(.initialized)').dropdown();
+
+        // Smooth scroll for anchor links
         $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
             if (
-                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-                && 
-                location.hostname == this.hostname
+                location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '')
+                &&
+                location.hostname === this.hostname
             ) {
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -34,207 +30,117 @@
                     event.preventDefault();
                     $('html, body').animate({
                         scrollTop: target.offset().top - 80
-                    }, 800, function() {
-                        var $target = $(target);
-                        $target.focus();
-                        if ($target.is(":focus")) {
-                            return false;
-                        } else {
-                            $target.attr('tabindex','-1');
-                            $target.focus();
-                        }
-                    });
+                    }, 800);
                 }
             }
         });
-        
-        // Animación para cards al hacer scroll
+
+        // Intersection Observer animation for cards (fade in on scroll)
         if (typeof IntersectionObserver !== 'undefined') {
-            const cards = document.querySelectorAll('.card');
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var cards = document.querySelectorAll('.ui.card, .ui.segment');
+            var cardObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
                         cardObserver.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.05,
+                rootMargin: '0px 0px -30px 0px'
             });
-            
-            cards.forEach(card => {
+
+            cards.forEach(function(card) {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 cardObserver.observe(card);
             });
         }
-        
-        // Easter egg: sonido "D'oh!" al hacer clic en el logo (opcional)
-        $('.navbar-brand').on('dblclick', function() {
+
+        // Easter egg: "D'oh!" sound on double-click on site name / logo
+        $('.ui.secondary.menu .header.item, .ui.masthead h1').on('dblclick', function() {
             playDohSound();
         });
-        
-        // Función para reproducir sonido D'oh (requiere archivo de audio)
+
         function playDohSound() {
-            // Crear elemento de audio dinámicamente
-            var audio = new Audio('/custom/templates/Simpsons/img/doh.mp3');
+            var templatePath = typeof TEMPLATE !== 'undefined' ? TEMPLATE.path : '/custom/templates/Simpsons-NamelessMC-main/';
+            var audio = new Audio(templatePath + 'img/doh.mp3');
             audio.volume = 0.3;
-            audio.play().catch(function(error) {
-                console.log('Audio playback failed:', error);
+            audio.play().catch(function() {
+                // Audio playback requires user interaction first, silently ignore
             });
-            
-            // Animación del logo
-            $('.navbar-brand').addClass('bounce-animation');
+
+            // Quick bounce animation on the element
+            var $el = $('.ui.masthead h1');
+            $el.css('animation', 'simpson-bounce 0.6s ease');
             setTimeout(function() {
-                $('.navbar-brand').removeClass('bounce-animation');
-            }, 2000);
+                $el.css('animation', '');
+            }, 600);
         }
-        
-        // Copiar IP del servidor al hacer clic
-        $('.server-ip-copy').on('click', function(e) {
+
+        // Copy server IP to clipboard (used in masthead)
+        $(document).on('click', '.server-ip-copy', function(e) {
             e.preventDefault();
-            var ip = $(this).data('ip');
-            
-            // Copiar al portapapeles
+            var ip = $(this).data('ip') || $(this).text().trim();
+
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(ip).then(function() {
-                    showNotification('IP copiada al portapapeles: ' + ip, 'success');
-                }).catch(function(err) {
-                    console.error('Error al copiar:', err);
+                    showToast('IP copiada: ' + ip, 'success');
                 });
             } else {
-                // Fallback para navegadores antiguos
                 var tempInput = document.createElement('input');
                 tempInput.value = ip;
                 document.body.appendChild(tempInput);
                 tempInput.select();
                 document.execCommand('copy');
                 document.body.removeChild(tempInput);
-                showNotification('IP copiada: ' + ip, 'success');
+                showToast('IP copiada: ' + ip, 'success');
             }
         });
-        
-        // Sistema de notificaciones
-        function showNotification(message, type) {
+
+        // Toast notification using Fomantic UI toast
+        function showToast(message, type) {
             type = type || 'info';
-            var bgColor;
-            
-            switch(type) {
-                case 'success':
-                    bgColor = 'var(--simpson-green)';
-                    break;
-                case 'error':
-                    bgColor = 'var(--simpson-red)';
-                    break;
-                case 'warning':
-                    bgColor = 'var(--simpson-orange)';
-                    break;
-                default:
-                    bgColor = 'var(--simpson-blue)';
-            }
-            
-            var notification = $('<div>', {
-                class: 'simpson-notification',
-                css: {
-                    position: 'fixed',
-                    top: '100px',
-                    right: '20px',
-                    background: bgColor,
-                    color: 'white',
-                    padding: '1rem 1.5rem',
-                    borderRadius: '15px',
-                    border: '3px solid var(--simpson-dark)',
-                    boxShadow: '5px 5px 0px rgba(0,0,0,0.3)',
-                    zIndex: 9999,
-                    fontWeight: '700',
-                    display: 'none'
-                },
-                html: '<i class="fas fa-check-circle"></i> ' + message
+            var iconMap = {
+                'success': 'checkmark',
+                'error': 'exclamation circle',
+                'warning': 'exclamation triangle',
+                'info': 'info circle'
+            };
+            var classMap = {
+                'success': 'success',
+                'error': 'error',
+                'warning': 'warning',
+                'info': 'info'
+            };
+
+            $('body').toast({
+                showIcon: iconMap[type] || 'info circle',
+                message: message,
+                class: classMap[type] || 'info',
+                displayTime: 3000,
+                showProgress: 'bottom',
+                position: 'bottom right',
             });
-            
-            $('body').append(notification);
-            notification.fadeIn(300);
-            
-            setTimeout(function() {
-                notification.fadeOut(300, function() {
-                    $(this).remove();
-                });
-            }, 3000);
         }
-        
-        // Animación de hover para los botones
-        $('.btn').hover(
-            function() {
-                $(this).addClass('animate__animated animate__pulse');
-            },
-            function() {
-                $(this).removeClass('animate__animated animate__pulse');
-            }
-        );
-        
-        // Lazy loading para imágenes
-        if ('loading' in HTMLImageElement.prototype) {
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            images.forEach(img => {
-                img.src = img.dataset.src;
-            });
-        } else {
-            // Fallback para navegadores que no soportan lazy loading nativo
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-            document.body.appendChild(script);
-        }
-        
-        // Prevenir doble clic en botones de submit
+
+        // Prevent double-click on form submit buttons
         $('form').on('submit', function() {
-            $(this).find('button[type="submit"]').prop('disabled', true);
-        });
-        
-        // Contador de caracteres para textareas
-        $('textarea[data-max-length]').each(function() {
-            var maxLength = $(this).data('max-length');
-            var $counter = $('<small>', {
-                class: 'text-muted d-block mt-1',
-                text: '0 / ' + maxLength + ' caracteres'
-            });
-            
-            $(this).after($counter);
-            
-            $(this).on('input', function() {
-                var currentLength = $(this).val().length;
-                $counter.text(currentLength + ' / ' + maxLength + ' caracteres');
-                
-                if (currentLength > maxLength * 0.9) {
-                    $counter.css('color', 'var(--simpson-orange)');
-                }
-                if (currentLength >= maxLength) {
-                    $counter.css('color', 'var(--simpson-red)');
-                }
-            });
-        });
-        
-        // Confirmación antes de eliminar
-        $('.btn-delete, .btn-danger[data-confirm]').on('click', function(e) {
-            var message = $(this).data('confirm') || '¿Estás seguro de que quieres hacer esto?';
-            if (!confirm(message)) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Auto-ocultar alertas después de 5 segundos
-        $('.alert:not(.alert-permanent)').each(function() {
-            var $alert = $(this);
+            var $btn = $(this).find('button[type="submit"], input[type="submit"]');
+            $btn.addClass('loading disabled');
+            // Re-enable after 5s in case of AJAX forms that don't redirect
             setTimeout(function() {
-                $alert.fadeOut(300, function() {
-                    $(this).remove();
-                });
+                $btn.removeClass('loading disabled');
             }, 5000);
         });
-        
-        // Easter egg: Konami code (↑ ↑ ↓ ↓ ← → ← → B A)
+
+        // Easter egg: Konami code
         var konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
         var konamiIndex = 0;
-        
-        $(document).keydown(function(e) {
+
+        $(document).on('keydown', function(e) {
             if (e.keyCode === konamiCode[konamiIndex]) {
                 konamiIndex++;
                 if (konamiIndex === konamiCode.length) {
@@ -245,21 +151,26 @@
                 konamiIndex = 0;
             }
         });
-        
+
         function activateKonamiCode() {
-            showNotification('¡Código Konami activado! ¡Eres un verdadero fan de Los Simpson!', 'success');
-            $('body').addClass('konami-active');
-            
-            // Efecto especial: hacer que todo se vuelva amarillo por un momento
-            $('body').animate({
-                backgroundColor: 'var(--simpson-yellow)'
-            }, 500).animate({
-                backgroundColor: ''
+            showToast('Ay caramba! Konami code activated!', 'success');
+            document.body.classList.add('konami-active');
+
+            // Brief yellow flash
+            var overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,217,15,0.4);z-index:99999;pointer-events:none;transition:opacity 1s ease;';
+            document.body.appendChild(overlay);
+            setTimeout(function() {
+                overlay.style.opacity = '0';
+                setTimeout(function() { overlay.remove(); }, 1000);
             }, 500);
         }
-        
-        console.log('%c¡Bienvenido a la plantilla de Los Simpson! 🍩', 'color: #FFD90F; font-size: 20px; font-weight: bold;');
-        console.log('%cD\'oh!', 'color: #6BADE4; font-size: 16px;');
+
+        // Console easter egg
+        if (window.console) {
+            console.log('%cBienvenido a Los Simpson Theme!', 'color: #FFD90F; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #000;');
+            console.log('%cD\'oh!', 'color: #6BADE4; font-size: 14px; font-weight: bold;');
+        }
     });
-    
+
 })(jQuery);
