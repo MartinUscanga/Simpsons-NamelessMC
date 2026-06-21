@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default Revamp template settings.
+ * Simpsons template settings.
  *
  * @author Samerton
  * @version 2.2.0
@@ -130,5 +130,5 @@ $current_template->getEngine()->addVariables([
     'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
     'NAVBAR_COLOURS' => $nav_colours,
     'HOME_CUSTOM_CONTENT' => $language->get('admin', 'home_custom_content'),
-    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl',
+    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/Simpsons-NamelessMC-main/template_settings/settings.tpl',
 ]);

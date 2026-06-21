@@ -2110,3 +2110,176 @@ body.dark .ui.card > .extra.content {
 body.dark #news-post {
     border-color: rgba(255, 255, 255, 0.05) !important;
 }
+
+/* ==========================================
+   CARD SCROLL ANIMATIONS
+   ========================================== */
+
+.simpson-animate-in {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.simpson-animate-in.simpson-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.simpson-visible {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ==========================================
+   BOOTSTRAP COMPATIBILITY (for admin settings panel)
+   ========================================== */
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: var(--simpson-font);
+    color: var(--simpson-dark);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    font-family: var(--simpson-font);
+    color: var(--simpson-dark);
+    background-color: #fff;
+    border: var(--border-width) solid rgba(44, 62, 80, 0.2);
+    border-radius: var(--border-radius);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-control:focus {
+    border-color: var(--simpson-blue);
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(107, 173, 228, 0.2);
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-family: var(--simpson-font);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid transparent;
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--simpson-blue);
+    border-color: var(--simpson-blue);
+}
+
+.btn-primary:hover {
+    background-color: #5a9dd5;
+    border-color: #5a9dd5;
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   FOOTER DIVIDER FIX
+   ========================================== */
+
+.ui.footer.segment .ui.inverted.divided.grid > .column:not(.row) {
+    box-shadow: none;
+}
+
+.ui.footer.segment .ui.stackable.inverted.divided.grid > .column:not(.row) {
+    border-top: 1px solid rgba(44, 62, 80, 0.15) !important;
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.ui.footer.segment .ui.stackable.inverted.divided.grid > .column:first-child {
+    border-top: none !important;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .ui.footer.segment .ui.stackable.inverted.divided.grid > .column:not(.row) {
+        border-top: none !important;
+        border-left: 1px solid rgba(44, 62, 80, 0.15) !important;
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .ui.footer.segment .ui.stackable.inverted.divided.grid > .column:first-child {
+        border-left: none !important;
+    }
+}
+
+/* ==========================================
+   TOAST STYLING (Fomantic UI)
+   ========================================== */
+
+.ui.toast-container .toast-box .ui.toast {
+    border-radius: var(--border-radius) !important;
+    font-family: var(--simpson-font) !important;
+    font-weight: 600 !important;
+}
+
+/* ==========================================
+   SELECTION & HIGHLIGHTS
+   ========================================== */
+
+::selection {
+    background: rgba(255, 217, 15, 0.4);
+    color: var(--simpson-dark);
+}
+
+::-moz-selection {
+    background: rgba(255, 217, 15, 0.4);
+    color: var(--simpson-dark);
+}
+
+/* ==========================================
+   FOCUS VISIBLE (accessibility)
+   ========================================== */
+
+:focus-visible {
+    outline: 2px solid var(--simpson-blue);
+    outline-offset: 2px;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+    body {
+        background: #fff !important;
+    }
+
+    .ui.secondary.menu,
+    .ui.masthead,
+    .ui.footer.segment,
+    #darkmode,
+    .ui.sidebar {
+        display: none !important;
+    }
+
+    .ui.card,
+    .ui.segment {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+}

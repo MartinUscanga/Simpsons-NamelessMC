@@ -1,4 +1,4 @@
-'Default Homepage' is set to 'Portal', which means NamelessMC renders the 'custom/templates/DefaultRevamp/portal.tpl' template file.<br>
+'Default Homepage' is set to 'Portal', which means NamelessMC renders the 'custom/templates/Simpsons-NamelessMC-main/portal.tpl' template file.<br>
 <br>
 This is a placeholder page, use this template for your own custom portal.<br>
 <br>
